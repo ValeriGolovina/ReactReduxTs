@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import Filter from "./components/filter/Filter";
-import CardsList from "./components/cardsList/CardsList";
-import './App.css';
+import '../App.css';
+import FilterableCards from "./filterableCards/FilterableCards";
+
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Filter />
-        <CardsList />
+        <FilterableCards />
       </div>
     );
   }

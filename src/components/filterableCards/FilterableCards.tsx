@@ -22,9 +22,8 @@ class FilterableCards extends Component<Props, State> {
                 city: ''
             }
         };
-        this.handleFilterText = this.handleFilterText.bind(this);
     }
-    handleFilterText(updatedFilters: FiltersModel): void{
+    handleFilterText = (updatedFilters: FiltersModel): void => {
         this.setState({
             filters: updatedFilters
         });
@@ -32,9 +31,8 @@ class FilterableCards extends Component<Props, State> {
     componentDidMount(): void {
         axios.get(`https://randomuser.me/api/?nat=gb&results=5`)
             .then(res => {
-                const cards: CardModel[]=[];
-                res.data.results.forEach((fullCard: any) => {
-                    cards.push({
+                const cards: CardModel[]= res.data.results.map((fullCard: any) => {
+                    return {
                         id: fullCard.id.value,
                         name: fullCard.name.title + ' ' + fullCard.name.first +  ' ' + fullCard.name.last,
                         description: {
@@ -42,20 +40,20 @@ class FilterableCards extends Component<Props, State> {
                             city: fullCard.location.city,
                             imgPath: fullCard.picture.medium
                         }
+                    }
                     })
-                })
                 this.setState({ cards });
-            })
+                })
+
             .catch(error => console.log(error))
 
     }
     render() {
+        const { filters, cards } = this.state;
         return (
             <div className="FilterableCards">
-                <Filter filters={this.state.filters} onChangingFilterTexts={this.handleFilterText}/>
-                <CardsList cards={this.state.cards} filters={this.state.filters}>
-                    <Route path="card/:id" />
-                </CardsList>
+                <Filter filters={filters} onChangingFilterTexts={this.handleFilterText}/>
+                <CardsList cards={cards} filters={filters} />
             </div>
         );
     }

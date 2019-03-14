@@ -8,33 +8,25 @@ interface Props {
 }
 
 
-class Filter extends Component<Props> {
-    public updatedFilters: FiltersModel= this.props.filters;
-    constructor(props: Props) {
-        super(props);
-        this.handleNameChanges = this.handleNameChanges.bind(this);
-        this.handleCityChanges = this.handleCityChanges.bind(this);
+function Filter(props:Props) {
+    const { onChangingFilterTexts, filters } = props;
+    const handleNameChanges = (e: any):void => {
+        onChangingFilterTexts({ ...filters, name: e.target.value });
     }
-    handleNameChanges(e: any):void {
-        this.updatedFilters.name = e.target.value;
-        this.props.onChangingFilterTexts(this.updatedFilters);
+    const handleCityChanges = (e: any):void => {
+        console.log(filters);
+        onChangingFilterTexts({ ...filters, city: e.target.value });
     }
-    handleCityChanges(e: any):void {
-        this.updatedFilters.city = e.target.value;
-        this.props.onChangingFilterTexts(this.updatedFilters);
-    }
-    render() {
         return (
             <form className="Filter">
                 <div className="form-group">
-                    <input type="text" className="form-control" id="name" placeholder="Name" value={this.props.filters.name} onChange={this.handleNameChanges}/>
+                    <input type="text" className="form-control" id="name" placeholder="Name" value={filters.name} onChange={handleNameChanges}/>
                 </div>
                 <div className="form-group">
-                    <input type="text" className="form-control" id="city" placeholder="City" value={this.props.filters.city} onChange={this.handleCityChanges}/>
+                    <input type="text" className="form-control" id="city" placeholder="City" value={filters.city} onChange={handleCityChanges}/>
                 </div>
             </form>
         );
-    }
 }
 
 export default Filter;

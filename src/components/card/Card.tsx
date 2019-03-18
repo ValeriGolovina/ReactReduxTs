@@ -5,12 +5,12 @@ import './Card.scss'
 
 interface Props {
     card: CardModel,
-    onStatusChanged: any
+    onStatusChanged: Function
     toggleStatuses: any,
 }
 
 function Card(props: Props) {
-    const {card,  toggleStatuses} = props;
+    const {card,  toggleStatuses, onStatusChanged} = props;
     return (
         <div className="Card">
             <div className="media Card-media">
@@ -21,8 +21,8 @@ function Card(props: Props) {
                     <p>City: {card.description.city}</p>
                 </div>
             </div>
-            {toggleStatuses.left && <button className="btn btn-small" onClick={() => {props.onStatusChanged(card.id, toggleStatuses.left)}}>Left</button>}
-            {toggleStatuses.right && <button className="btn btn-small" onClick={() => {props.onStatusChanged(card.id, toggleStatuses.right)}}>Right</button>}
+            {toggleStatuses.left && <button className="btn btn-small" onClick={() => {onStatusChanged(card.id, toggleStatuses.left)}}>Left</button>}
+            {toggleStatuses.right && <button className="btn btn-small" onClick={() => {onStatusChanged(card.id, toggleStatuses.right)}}>Right</button>}
         </div>
     );
 }

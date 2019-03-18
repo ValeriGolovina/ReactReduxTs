@@ -34,17 +34,17 @@ class ConnectedFilterableCards extends Component<Props> {
         this.props.getCards();
     }
     render() {
-        const {cards, loading, isFailed} = this.props;
+        const {cards, loading, isFailed, onStatusChanged} = this.props;
         return (
 
             <div className="FilterableCards" >
                 <CardsList toggleStatuses={{right: STATUS_CONSTANT.INTERVIEWED}} status={ STATUS_CONSTANT.APPLIED} cards={cards.filter(card => card.status=== STATUS_CONSTANT.APPLIED)}
-                           onStatusChanged={this.props.onStatusChanged}/>
+                           onStatusChanged={onStatusChanged}/>
                 <CardsList toggleStatuses={{left:  STATUS_CONSTANT.APPLIED , right: STATUS_CONSTANT.HIRED}} status={STATUS_CONSTANT.INTERVIEWED}
                            cards={cards.filter(card => card.status===STATUS_CONSTANT.INTERVIEWED)}
-                           onStatusChanged={this.props.onStatusChanged}/>
+                           onStatusChanged={onStatusChanged}/>
                 <CardsList toggleStatuses={{left: STATUS_CONSTANT.INTERVIEWED}} status={ STATUS_CONSTANT.HIRED} cards={cards.filter(card => card.status=== STATUS_CONSTANT.HIRED)}
-                           onStatusChanged={this.props.onStatusChanged}/>
+                           onStatusChanged={onStatusChanged}/>
             </div>
         );
     }

@@ -9,9 +9,9 @@ interface Props {
     onStatusChanged: Function
 }
 function CardsList (props:Props) {
-    const {cards, status, toggleStatuses} = props;
+    const {cards, status, toggleStatuses, onStatusChanged} = props;
         const filteredCards: any[] = cards.map((card) =>
-            <Card card={card} key={card.id} toggleStatuses={toggleStatuses} onStatusChanged={props.onStatusChanged}/>);
+            <Card card={card} key={card.id} toggleStatuses={toggleStatuses} onStatusChanged={onStatusChanged}/>);
         return (
             <div className="CardsList">
                 <div className="CardsList-item">

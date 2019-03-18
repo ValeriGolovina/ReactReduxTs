@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../App.css';
-import FilterableCards from "./filterableCards/FilterableCards";
+import FilterableCards from "../containers/FilterableCards";
 
 class App extends Component {
   render() {

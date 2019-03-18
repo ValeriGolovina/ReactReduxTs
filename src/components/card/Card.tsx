@@ -1,13 +1,16 @@
-import React, {Component} from 'react';
+import React from 'react';
 import CardModel from "../../models/cardModel";
 import './Card.scss'
 
+
 interface Props {
     card: CardModel,
+    onStatusChanged: any
+    toggleStatuses: any,
 }
 
 function Card(props: Props) {
-    const {card} = props;
+    const {card,  toggleStatuses} = props;
     return (
         <div className="Card">
             <div className="media Card-media">
@@ -18,9 +21,10 @@ function Card(props: Props) {
                     <p>City: {card.description.city}</p>
                 </div>
             </div>
+            {toggleStatuses.left && <button className="btn btn-small" onClick={() => {props.onStatusChanged(card.id, toggleStatuses.left)}}>Left</button>}
+            {toggleStatuses.right && <button className="btn btn-small" onClick={() => {props.onStatusChanged(card.id, toggleStatuses.right)}}>Right</button>}
         </div>
     );
 }
-
 
 export default Card;

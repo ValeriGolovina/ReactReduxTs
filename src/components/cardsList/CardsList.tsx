@@ -1,26 +1,25 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Card from "../card/Card";
 import CardModel from "../../models/cardModel";
-import FiltersModel from "../../models/filtersModel";
 
 interface Props {
     cards: CardModel[],
-    filters: FiltersModel
+    status: string,
+    toggleStatuses: Object
+    onStatusChanged: Function
 }
 function CardsList (props:Props) {
-    const {cards, filters} = props;
-        const filteredCards: any[] = cards.filter((card: CardModel) => {
-            return card.name.includes(filters.name) && card.description.city.includes(filters.city)
-        }).map((card) => <Card card={card} key={card.id}/>);
-
+    const {cards, status, toggleStatuses} = props;
+        const filteredCards: any[] = cards.map((card) =>
+            <Card card={card} key={card.id} toggleStatuses={toggleStatuses} onStatusChanged={props.onStatusChanged}/>);
         return (
             <div className="CardsList">
                 <div className="CardsList-item">
+                    {status}
                     {filteredCards}
                 </div>
             </div>
         );
 }
-
 
 export default CardsList;

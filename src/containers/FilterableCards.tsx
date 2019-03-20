@@ -4,7 +4,6 @@ import CardModel from "../models/cardModel";
 import {State} from "../store/reducers";
 import {getCards, toggleStatus} from "../store/actions";
 import {connect} from "react-redux";
-import {Dispatch} from "redux";
 import {STATUS_CONSTANT} from "./constants";
 import './FilterableCards.scss';
 
@@ -12,8 +11,8 @@ interface Props {
     cards: CardModel[],
     loading: boolean,
     isFailed: boolean,
-    getCards: Function,
-    onStatusChanged: Function
+    getCards(): void,
+    onStatusChanged(id:string, status:string | undefined ): void
 }
 
 const mapStateToProps = (state:State) => ({
@@ -21,15 +20,8 @@ const mapStateToProps = (state:State) => ({
     loading: state.loading,
     isFailed: state.isFailed
 });
-const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
-    getCards: () => dispatch(getCards()),
-    onStatusChanged: (id:string, status:string)=> dispatch(toggleStatus(id, status))
-})
 
 class ConnectedFilterableCards extends Component<Props> {
-    constructor(props: any) {
-        super(props);
-    }
     componentDidMount(): void {
         this.props.getCards();
     }
@@ -49,5 +41,5 @@ class ConnectedFilterableCards extends Component<Props> {
         );
     }
 }
-const FilterableCards = connect(mapStateToProps, mapDispatchToProps)(ConnectedFilterableCards);
+const FilterableCards = connect(mapStateToProps, { getCards: getCards, onStatusChanged: toggleStatus })(ConnectedFilterableCards);
 export default FilterableCards;

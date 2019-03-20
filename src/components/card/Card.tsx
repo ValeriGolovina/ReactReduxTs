@@ -1,16 +1,16 @@
 import React from 'react';
 import CardModel from "../../models/cardModel";
 import './Card.scss'
+import ToggleStatusesModel from "../../models/toggleStatusesModel";
 
 
 interface Props {
     card: CardModel,
-    onStatusChanged: Function
-    toggleStatuses: any,
+    onStatusChanged(id:string, status:string | undefined ): void,
+    toggleStatuses: ToggleStatusesModel,
 }
 
-function Card(props: Props) {
-    const {card,  toggleStatuses, onStatusChanged} = props;
+function Card( {card,  toggleStatuses, onStatusChanged} : Props) {
     return (
         <div className="Card">
             <div className="media Card-media">

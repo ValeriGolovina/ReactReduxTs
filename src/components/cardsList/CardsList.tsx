@@ -1,15 +1,15 @@
 import React from 'react';
 import Card from "../card/Card";
 import CardModel from "../../models/cardModel";
+import ToggleStatusesModel from "../../models/toggleStatusesModel";
 
 interface Props {
     cards: CardModel[],
     status: string,
-    toggleStatuses: Object
-    onStatusChanged: Function
+    toggleStatuses: ToggleStatusesModel,
+    onStatusChanged(id:string, status:string | undefined ): void
 }
-function CardsList (props:Props) {
-    const {cards, status, toggleStatuses, onStatusChanged} = props;
+function CardsList ({cards, status, toggleStatuses, onStatusChanged}:Props) {
         const filteredCards: any[] = cards.map((card) =>
             <Card card={card} key={card.id} toggleStatuses={toggleStatuses} onStatusChanged={onStatusChanged}/>);
         return (
